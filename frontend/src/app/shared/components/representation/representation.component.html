@@ -1,0 +1,19 @@
+<div class="frame" (pointerup)="dishWasTapped($event)">
+  <picture class="image">
+    <source
+      [srcset]="'assets/dishes/' + represent.name + '_320.jpg'"
+      type="image/jpg"
+      media="all and (max-width: 320px)">
+    <source
+      [srcset]="'assets/dishes/' + represent.name + '_640.jpg'"
+      type="image/jpg"
+      media="all and (min-width: 321px) and (max-width: 640px)">
+    <img [src]="'assets/dishes/' + represent.name + '_640.jpg'">
+  </picture>
+
+  <div class="nomination">{{ represent.name }}</div>
+  <div class="info">
+    <div class="price">{{ represent.price + '₽' }}</div>
+    <div class="weight">{{ represent.weight + 'г' }}</div>
+  </div>
+</div>
