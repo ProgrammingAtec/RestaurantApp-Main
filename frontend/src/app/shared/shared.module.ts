@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RepresentationComponent } from './representation/representation.component';
+import { RepresentationComponent } from './components/representation/representation.component';
+import { MenuItemDetailsComponent } from './components/menu-item-details/menu-item-details.component';
 
 
 
 @NgModule({
   declarations: [
-    RepresentationComponent
+    RepresentationComponent,
+    MenuItemDetailsComponent
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    RepresentationComponent,
+    MenuItemDetailsComponent
   ]
 })
 export class SharedModule { }

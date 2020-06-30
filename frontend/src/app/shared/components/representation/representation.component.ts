@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {DishModel, DrinkModel} from '../models';
-import {DishesController} from '../../dishes/dishes.controller';
+import {DishModel, DrinkModel} from '../../models';
+import {DishesController} from '../../../dishes/dishes.controller';
 
 @Component({
   selector: 'app-representation',
@@ -16,9 +16,7 @@ export class RepresentationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public dishWasTapped(event): void {
-    console.log(event);
-    console.log(this.dishesController);
-    this.dishesController.emitDishWasTapped();
+  public menuItemTapped(): void {
+    this.dishesController.emitMenuItemTapped(this.represent);
   }
 }

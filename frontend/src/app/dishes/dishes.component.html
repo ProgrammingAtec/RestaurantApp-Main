@@ -1,1 +1,15 @@
-<p>dishes works!</p>
+<div #grid class="grid position">
+  <app-representation
+    *ngFor="let dish of dishes"
+    class="dish"
+    [represent]="dish">
+  </app-representation>
+</div>
+
+<ng-container *ngIf="showMenuItemDetails">
+  <app-menu-item-details
+    class="menu-item-details"
+    [style.bottom.px]="bottomIndent"
+    [menuItem]="tappedMenuItem">
+  </app-menu-item-details>
+</ng-container>

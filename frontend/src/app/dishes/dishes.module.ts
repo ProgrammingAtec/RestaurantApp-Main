@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DishesComponent } from './dishes.component';
+import {SharedModule} from '../shared/shared.module';
+import {HttpClientModule} from '@angular/common/http';
 
 
 
@@ -9,7 +11,9 @@ import { DishesComponent } from './dishes.component';
     DishesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    HttpClientModule
   ],
   exports: [
     DishesComponent
