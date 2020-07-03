@@ -6,6 +6,8 @@ import {DishModel, DrinkModel} from '../shared/models';
 export class DishesController {
   private _menuItemTapped: Subject<DishModel | DrinkModel> = new Subject();
 
+  showIngredients: boolean = false;
+
   public emitMenuItemTapped(menuItem: DishModel | DrinkModel): void {
     this._menuItemTapped.next(menuItem);
   }

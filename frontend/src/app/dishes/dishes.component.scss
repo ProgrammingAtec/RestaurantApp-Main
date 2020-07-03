@@ -37,9 +37,12 @@
   }
 }
 
-.menu-item-details {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border: 10px solid;
+.menu-item-details, .fogging {
+  position: absolute; left: 0; right: 0;
+  background-color: green;
+}
+
+.fogging {
+  background-color: rgb(0, 0, 0, 0.7);
+  height: 100vh;
 }

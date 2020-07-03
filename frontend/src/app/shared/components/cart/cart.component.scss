@@ -1,0 +1,13 @@
+.cart {
+  display: flex; justify-content: center; align-items: center;
+  position: sticky; top: 0; z-index: 2;
+  height: 5vh;
+  background-color: yellow;
+}
+
+.cart-total {
+  padding: 2px 6px;
+  margin-left: 0.25rem;
+  border-radius: 10%;
+  background-color: #7ed321;
+}

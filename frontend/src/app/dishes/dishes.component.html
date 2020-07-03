@@ -6,10 +6,13 @@
   </app-representation>
 </div>
 
-<ng-container *ngIf="showMenuItemDetails">
-  <app-menu-item-details
-    class="menu-item-details"
-    [style.bottom.px]="bottomIndent"
-    [menuItem]="tappedMenuItem">
-  </app-menu-item-details>
-</ng-container>
+<div *ngIf="showMenuItemDetails" class="fogging" [style.bottom.px]="bottomIndent" (touchmove)="touchMove($event)"></div>
+
+<app-menu-item-details
+  *ngIf="showMenuItemDetails"
+  class="menu-item-details"
+  [ngStyle]="{ 'bottom': cartService.isCartEmpty ? bottomIndent + 'px' : 'calc(' + bottomIndent + 'px + 5vh)'}"
+  [menuItem]="tappedMenuItem"
+  @heightOpenClose
+  (touchmove)="touchMove($event)">
+</app-menu-item-details>
