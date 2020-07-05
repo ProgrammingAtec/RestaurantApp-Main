@@ -18,8 +18,8 @@
 <div class="order-panel">
   <div class="counter">
     <button type="button" class="decrease" (click)="decrease()">-</button>
-    <span class="total">{{ total }}</span>
+    <div class="total">{{ total }}</div>
     <button type="button" class="increase" (click)="increase()">+</button>
   </div>
-  <button type="button" (click)="addToCart()">Add</button>
+  <button class="add" type="button" (click)="addToCart()">Add</button>
 </div>

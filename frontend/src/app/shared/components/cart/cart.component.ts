@@ -30,6 +30,8 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class CartComponent implements OnInit {
   cart: CartModel;
+  isSpread = false;
+  customIterator: () => { next };
 
   constructor(
     private readonly cartService: CartService) {
@@ -38,7 +40,38 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.cartService.cartValueChanges.subscribe(() => {
       this.cart = this.cartService.getCurrentCartValue();
-      console.log('cartValue', this.cart);
+
+      this.customIterator = () => {
+        const keys = Object.keys(this.cart.dishes);
+        const totalProperties: number = keys.length;
+        const dishes = this.cart.dishes;
+        let iterator = 0;
+
+
+        return {
+          next() {
+            if (iterator < totalProperties) {
+              iterator++;
+              return {
+                done: false,
+                value: {
+                  key: keys[iterator],
+                  value: dishes[keys[iterator]]
+                }
+              };
+            } else {
+              return {
+                done: true
+              };
+            }
+          }
+        };
+      };
+      this.cart.dishes[Symbol.iterator] = this.customIterator;
     });
+  }
+
+  toggleDetails(): void {
+    this.isSpread = !this.isSpread;
   }
 }

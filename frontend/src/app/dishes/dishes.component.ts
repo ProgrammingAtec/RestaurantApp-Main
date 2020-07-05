@@ -3,7 +3,7 @@ import {DishModel, DrinkModel} from '../shared/models';
 import {HttpClient} from '@angular/common/http';
 import {DishesController} from './dishes.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {CartService} from "../shared/services/cart.service";
+import {CartService} from '../shared/services/cart.service';
 
 @Component({
   selector: 'app-dishes',
@@ -18,7 +18,7 @@ import {CartService} from "../shared/services/cart.service";
         style({
           height: '0'
         }),
-        animate('3ms ease-in-out', style({
+        animate('0.3s ease-in-out', style({
           height: '*',
         }))
       ]),

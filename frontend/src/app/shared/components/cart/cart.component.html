@@ -1,5 +1,21 @@
-<div *ngIf="cart" class="cart" @openCloseHeight>
+<div *ngIf="cart" class="cart" @openCloseHeight (click)="toggleDetails()">
+  <div class="close">
+    <div class="stick stick-one"></div>
+    <div class="stick stick-two"></div>
+  </div>
   <div class="cart-icon"></div>
   <div class="cart-name">{{ 'Cart:' }}</div>
   <div class="cart-total">{{ cart.totalPositions }}</div>
+</div>
+
+<div class="spread" [style.height]="isSpread ? '95vh' : '0'">
+  <ng-container *ngIf="cart?.dishes !== null">
+    <h2 class="header">Dishes</h2>
+    <div
+      *ngFor="let dish of cart.dishes"
+      class="dish">
+      <div class="position">{{ dish.key }}</div>
+      <div class="amount">{{ dish.value }}</div>
+    </div>
+  </ng-container>
 </div>

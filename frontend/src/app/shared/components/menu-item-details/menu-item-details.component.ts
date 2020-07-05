@@ -55,8 +55,6 @@ export class MenuItemDetailsComponent implements OnInit {
   }
 
   addToCart(): void {
-    console.log(sessionStorage.hasOwnProperty('dishes'));
-    console.log('sessionStorage: ', sessionStorage);
     if (sessionStorage.hasOwnProperty('dishes')) {
       let existingDishes: object = JSON.parse(sessionStorage.getItem('dishes'));
       for (const dishName in existingDishes) {
