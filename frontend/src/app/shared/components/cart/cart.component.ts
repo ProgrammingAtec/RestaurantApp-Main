@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CartModel} from '../../models/cart.model';
 import {CartService} from '../../services/cart.service';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +29,9 @@ import {animate, style, transition, trigger} from '@angular/animations';
     ])
   ]
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription = new Subscription();
+
   cart: CartModel;
   isSpread = false;
   customIterator: () => { next };
@@ -38,15 +41,16 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cartService.cartValueChanges.subscribe(() => {
+    this.subscriptions.add(this.cartService.cartValueChanges.subscribe(() => {
+      console.log('cart was changed: ');
       this.cart = this.cartService.getCurrentCartValue();
+      console.log('current cart value: ', this.cart);
 
       this.customIterator = () => {
         const keys = Object.keys(this.cart.dishes);
         const totalProperties: number = keys.length;
         const dishes = this.cart.dishes;
         let iterator = 0;
-
 
         return {
           next() {
@@ -55,8 +59,8 @@ export class CartComponent implements OnInit {
               return {
                 done: false,
                 value: {
-                  key: keys[iterator],
-                  value: dishes[keys[iterator]]
+                  key: keys[iterator - 1],
+                  value: dishes[keys[iterator - 1]]
                 }
               };
             } else {
@@ -68,10 +72,27 @@ export class CartComponent implements OnInit {
         };
       };
       this.cart.dishes[Symbol.iterator] = this.customIterator;
-    });
+    }));
   }
 
-  toggleDetails(): void {
-    this.isSpread = !this.isSpread;
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  openDetails(): void {
+    this.isSpread = true;
+  }
+
+  closeDetails(): void {
+    this.isSpread = false;
+  }
+
+  removeMenuItem(menuItem: {key: string, value: number}): void {
+    if (menuItem.value > 0) {
+      this.cart[menuItem.value]--;
+    }
+    sessionStorage.setItem('dishes', JSON.stringify(this.cart));
+
+    this.cartService.emitCartWasChanged();
   }
 }

@@ -12,21 +12,20 @@ export class CartService {
 
   isCartEmpty: boolean = true;
 
+  get cartValueChanges(): Subject<void> {
+    return this._cartWasChanged;
+  }
+
   updateCart(): void {
     this.updateCurrentCartValue();
     this.updateIsCartEmptyState();
-    this.getUpdatedTotalCartPositions();
   }
 
   getCurrentCartValue(): CartModel {
     return this._cart;
   }
 
-  get cartValueChanges(): Subject<void> {
-    return this._cartWasChanged;
-  }
-
-  emitCartWasChanges(): void {
+  emitCartWasChanged(): void {
     this.updateCart();
     this._cartWasChanged.next();
   }
@@ -34,18 +33,29 @@ export class CartService {
   private updateCurrentCartValue() {
     if (this._cart) {
       this._cart.dishes = JSON.parse(sessionStorage.getItem('dishes'));
-      this._cart.totalPositions = this.getUpdatedTotalCartPositions();
-
+      // this._cart.dishes = JSON.parse(sessionStorage.getItem('drinks'));
+      this._cart.totalPositions = getTotalPositions(this._cart.dishes, this._cart.drinks);
       return;
     }
 
     const newCreatedCart: CartModel = {
       dishes: JSON.parse(sessionStorage.getItem('dishes')),
-      drinks: null,
-      totalPositions: 1
+      drinks: JSON.parse(sessionStorage.getItem('drinks')),
+      totalPositions: null
     };
-
+    newCreatedCart.totalPositions = getTotalPositions(newCreatedCart.dishes, newCreatedCart.drinks);
     this._cart = newCreatedCart;
+
+    function getTotalPositions(dishes: object, drinks: object): number {
+      let totalPositions: number = 0;
+      for (const positioin in dishes) {
+        if (dishes.hasOwnProperty(positioin)) totalPositions++;
+      }
+      for (const position in drinks) {
+        if (drinks.hasOwnProperty(position)) totalPositions++;
+      }
+      return totalPositions;
+    }
   }
 
   private updateIsCartEmptyState(): void {
@@ -55,18 +65,5 @@ export class CartService {
     }
 
     this.isCartEmpty = false;
-  }
-
-  private getUpdatedTotalCartPositions(): number {
-    let totalPositions: number = 0;
-    for (const position in this._cart.dishes) {
-      totalPositions++;
-    }
-
-    for (const position in this._cart.drinks) {
-      totalPositions++;
-    }
-
-    return totalPositions;
   }
 }

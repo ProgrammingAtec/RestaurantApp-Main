@@ -15,7 +15,8 @@
   <div *ngIf="dishesController.showIngredients" class="ingredients" @heightOpenClose>{{ menuItem.ingredients }}</div>
 </div>
 
-<div class="order-panel">
+<div class="order-panel"
+     [ngClass]="{ 'order-panel_shadow': !dishesController.showIngredients }">
   <div class="counter">
     <button type="button" class="decrease" (click)="decrease()">-</button>
     <div class="total">{{ total }}</div>

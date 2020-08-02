@@ -1,21 +1,24 @@
-<div *ngIf="cart" class="cart" @openCloseHeight (click)="toggleDetails()">
-  <div class="close">
-    <div class="stick stick-one"></div>
-    <div class="stick stick-two"></div>
-  </div>
-  <div class="cart-icon"></div>
-  <div class="cart-name">{{ 'Cart:' }}</div>
-  <div class="cart-total">{{ cart.totalPositions }}</div>
-</div>
+<div
+  *ngIf="cart"
+  class="cart"
+  [style.height]="isSpread ? '100vh' : 'auto'"
+  (click)="openDetails()">
 
-<div class="spread" [style.height]="isSpread ? '95vh' : '0'">
-  <ng-container *ngIf="cart?.dishes !== null">
-    <h2 class="header">Dishes</h2>
-    <div
-      *ngFor="let dish of cart.dishes"
-      class="dish">
-      <div class="position">{{ dish.key }}</div>
-      <div class="amount">{{ dish.value }}</div>
+  <header>
+    <ion-icon name="close-outline" class="close" (click)="closeDetails(); $event.stopPropagation()"></ion-icon>
+    <div class="cart-icon"></div>
+    <div class="cart-name">{{ 'Cart:' }}</div>
+    <div class="cart-total">{{ cart.totalPositions }}</div>
+  </header>
+
+  <main *ngIf="isSpread">
+    <h2 class="dishes">Dishes</h2>
+
+    <div *ngFor="let dish of cart.dishes" class="dish">
+      <div class="dish__position">{{ dish.key }}</div>
+      <div class="dish__amount">{{ dish.value }}</div>
+      <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removeMenuItem(dish); $event.stopPropagation()"></ion-icon>
     </div>
-  </ng-container>
+  </main>
+
 </div>

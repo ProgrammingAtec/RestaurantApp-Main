@@ -14,7 +14,7 @@ import {CartService} from '../../services/cart.service';
         style({
           height: '0'
         }),
-        animate('0.3s ease-in-out', style({
+        animate('0.1s ease-in-out', style({
           height: '*',
         }))
       ]),
@@ -22,7 +22,7 @@ import {CartService} from '../../services/cart.service';
         style({
           height: '*'
         }),
-        animate('0.3s ease-in-out', style({
+        animate('0.1s ease-in-out', style({
           height: '0',
         }))
       ])
@@ -62,7 +62,7 @@ export class MenuItemDetailsComponent implements OnInit {
           existingDishes[dishName] = existingDishes[dishName] + this.total;
           sessionStorage.setItem('dishes', JSON.stringify(existingDishes));
 
-          this.cartService.emitCartWasChanges();
+          this.cartService.emitCartWasChanged();
           return;
         }
       }
@@ -74,12 +74,12 @@ export class MenuItemDetailsComponent implements OnInit {
 
       sessionStorage.setItem('dishes', JSON.stringify(existingDishes));
 
-      this.cartService.emitCartWasChanges();
+      this.cartService.emitCartWasChanged();
       return;
     }
 
     sessionStorage.setItem('dishes', JSON.stringify(this.orderCurrentMenuItem()));
-    this.cartService.emitCartWasChanges();
+    this.cartService.emitCartWasChanged();
   }
 
   private orderCurrentMenuItem(): object {
