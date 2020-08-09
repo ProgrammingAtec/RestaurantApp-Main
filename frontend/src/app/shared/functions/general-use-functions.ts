@@ -1,7 +1,7 @@
-export function isObjectEmpty(targetObject): boolean {
+export function objectNotEmpty(targetObject): boolean {
   for (const property in targetObject) {
-    return false;
+    if (targetObject.hasOwnProperty(property)) return true;
   }
 
-  return true;
+  return false;
 }

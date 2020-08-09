@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: restaurant_frontend
+    ports:
+      - 4200:80
+    depends_on:
+      - backend
+    networks:
+      - restaurant-net
+
+  backend:
+    build: ./backend
+    container_name: restaurant_backend
+    networks:
+      - restaurant-net
+
+networks:
+  restaurant-net:
+    driver: bridge

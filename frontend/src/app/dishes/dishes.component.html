@@ -17,7 +17,7 @@
 <app-menu-item-details
   *ngIf="showDetails"
   class="menu-item-details"
-  [ngStyle]="{ 'bottom': cartService.isCartEmpty ? bottomIndent + 'px' : 'calc(' + bottomIndent + 'px + 5vh)'}"
+  [ngStyle]="{ 'bottom': isCartEmpty ? bottomIndent + 'px' : 'calc(' + bottomIndent + 'px + 5vh)'}"
   [menuItem]="tappedMenuItem"
   @heightOpenClose
   (touchmove)="touchMove($event); $event.preventDefault()"

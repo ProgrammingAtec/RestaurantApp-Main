@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
         style({
           height: 0
         }),
-        animate('0.3s ease-in-out', style({
+        animate('0.2s ease-in-out', style({
           height: '*'
         }))
       ]),
@@ -22,7 +22,7 @@ import {Subscription} from 'rxjs';
         style({
           height: '*'
         }),
-        animate('0.3s ease-in-out', style({
+        animate('0.2s ease-in-out', style({
           height: 0
         }))
       ])
@@ -42,37 +42,40 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(this.cartService.cartValueChanges.subscribe(() => {
-      console.log('cart was changed: ');
       this.cart = this.cartService.getCurrentCartValue();
-      console.log('current cart value: ', this.cart);
 
-      this.customIterator = () => {
-        const keys = Object.keys(this.cart.dishes);
-        const totalProperties: number = keys.length;
-        const dishes = this.cart.dishes;
-        let iterator = 0;
+      if (this.cart) {
+        this.customIterator = () => {
+          const keys = Object.keys(this.cart.dishes);
+          const totalProperties: number = keys.length;
+          const dishes = this.cart.dishes;
+          let iterator = 0;
 
-        return {
-          next() {
-            if (iterator < totalProperties) {
-              iterator++;
-              return {
-                done: false,
-                value: {
-                  key: keys[iterator - 1],
-                  value: dishes[keys[iterator - 1]]
-                }
-              };
-            } else {
-              return {
-                done: true
-              };
+          return {
+            next() {
+              if (iterator < totalProperties) {
+                iterator++;
+                return {
+                  done: false,
+                  value: {
+                    key: keys[iterator - 1],
+                    value: dishes[keys[iterator - 1]]
+                  }
+                };
+              } else {
+                return {
+                  done: true
+                };
+              }
             }
-          }
+          };
         };
-      };
-      this.cart.dishes[Symbol.iterator] = this.customIterator;
+        this.cart.dishes[Symbol.iterator] = this.customIterator;
+      }
     }));
+
+    // first initialization
+    this.cartService.emitCartWasChanged();
   }
 
   ngOnDestroy(): void {
@@ -88,11 +91,14 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   removeMenuItem(menuItem: {key: string, value: number}): void {
-    if (menuItem.value > 0) {
-      this.cart[menuItem.value]--;
+    if (menuItem.value > 1) {
+      this.cart.dishes[menuItem.key]--;
     }
-    sessionStorage.setItem('dishes', JSON.stringify(this.cart));
-
+    if (menuItem.value === 1) {
+      if (this.cart.totalPositions === 1) this.isSpread = false;
+      delete this.cart.dishes[menuItem.key];
+    }
+    sessionStorage.setItem('dishes', JSON.stringify(this.cart.dishes));
     this.cartService.emitCartWasChanged();
   }
 }

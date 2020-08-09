@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {DishesController} from './dishes.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {CartService} from '../shared/services/cart.service';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-dishes',
@@ -37,7 +37,7 @@ import {Subscription} from "rxjs";
 export class DishesComponent implements OnInit, OnDestroy {
   @ViewChild('grid', { static: true }) grid: ElementRef;
 
-  private _dishes: DishModel[] = [
+  public dishes: DishModel[] = [
     {
       name: 'henkali',
       quantity: 3,
@@ -220,7 +220,7 @@ export class DishesComponent implements OnInit, OnDestroy {
       ]
     }
   ];
-  private _showDetails = false;
+
   private _closeDetails = false;
   private _distanceFromTop: number = 0;
   private _touchY: number[] = [];
@@ -228,27 +228,21 @@ export class DishesComponent implements OnInit, OnDestroy {
 
   bottomIndent: number = 0;
   tappedMenuItem: DishModel | DrinkModel;
-
-  get dishes(): DishModel[] {
-    return this._dishes;
-  }
-
-  get showDetails(): boolean {
-    return this._showDetails;
-  }
+  isCartEmpty: boolean;
+  showDetails: boolean = false;
 
   constructor(
     private readonly http: HttpClient,
     private readonly dishesController: DishesController,
     readonly cartService: CartService
   ) {
-    this.defineMobileVH();
   }
 
   ngOnInit(): void {
     // this.getDishes();
     this.subscrOnMenuItemTapped();
     this.subscrOnScroll();
+    this.subscrOnEmptyCart();
   }
 
   ngOnDestroy(): void {
@@ -256,7 +250,7 @@ export class DishesComponent implements OnInit, OnDestroy {
   }
 
   touchMove(event: TouchEvent): void {
-    if (!this._showDetails) {
+    if (!this.showDetails) {
       this._touchY = [];
       return;
     }
@@ -289,7 +283,7 @@ export class DishesComponent implements OnInit, OnDestroy {
 
   closeDetails(): void {
     if (this._closeDetails) {
-      this._showDetails = false;
+      this.showDetails = false;
       this._closeDetails = false;
     }
     this._touchY = [];
@@ -297,14 +291,14 @@ export class DishesComponent implements OnInit, OnDestroy {
 
   private getDishes(): void {
     this.http.get('api/dishes/getAll').subscribe((dishes: { data: DishModel[] }) => {
-      this._dishes = dishes.data;
+      this.dishes = dishes.data;
     });
   }
 
   private subscrOnMenuItemTapped(): void {
     this.subscriptions.add(this.dishesController.menuItemTapped.subscribe((menuItem) => {
       this.tappedMenuItem = menuItem;
-      this._showDetails = true;
+      this.showDetails = true;
       this.calcScrolledHeight();
       this._touchY = [];
     }));
@@ -318,14 +312,13 @@ export class DishesComponent implements OnInit, OnDestroy {
 
   private subscrOnScroll(): void {
     window.addEventListener('scroll', (event) => {
-      if (this._showDetails) {
+      if (this.showDetails) {
         window.scrollTo(0, this._distanceFromTop);
       }
     });
   }
 
-  private defineMobileVH(): void {
-    const vh = String(window.innerHeight * 0.01);
-    document.documentElement.style.setProperty('--vh', vh);
+  private subscrOnEmptyCart(): void {
+    this.subscriptions.add(this.cartService.isCartEmpty.subscribe(isEmpty => this.isCartEmpty = isEmpty));
   }
 }

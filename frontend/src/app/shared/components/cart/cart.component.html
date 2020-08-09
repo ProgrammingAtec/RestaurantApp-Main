@@ -1,5 +1,5 @@
 <div
-  *ngIf="cart"
+  *ngIf="cart?.totalPositions"
   class="cart"
   [style.height]="isSpread ? '100vh' : 'auto'"
   (click)="openDetails()">

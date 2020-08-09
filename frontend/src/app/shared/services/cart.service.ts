@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {isObjectEmpty} from '../functions/general-use-functions';
+import {objectNotEmpty} from '../functions/general-use-functions';
 import {CartModel} from '../models/cart.model';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class CartService {
   private _cart: CartModel;
   private _cartWasChanged: Subject<void> = new Subject();
 
-  isCartEmpty: boolean = true;
+  isCartEmpty: Subject<boolean> = new Subject();
 
   get cartValueChanges(): Subject<void> {
     return this._cartWasChanged;
@@ -18,10 +18,11 @@ export class CartService {
 
   updateCart(): void {
     this.updateCurrentCartValue();
-    this.updateIsCartEmptyState();
+    this.updateIsCartEmpty();
   }
 
   getCurrentCartValue(): CartModel {
+    this.updateCurrentCartValue();
     return this._cart;
   }
 
@@ -33,7 +34,7 @@ export class CartService {
   private updateCurrentCartValue() {
     if (this._cart) {
       this._cart.dishes = JSON.parse(sessionStorage.getItem('dishes'));
-      // this._cart.dishes = JSON.parse(sessionStorage.getItem('drinks'));
+      this._cart.drinks = JSON.parse(sessionStorage.getItem('drinks'));
       this._cart.totalPositions = getTotalPositions(this._cart.dishes, this._cart.drinks);
       return;
     }
@@ -44,26 +45,30 @@ export class CartService {
       totalPositions: null
     };
     newCreatedCart.totalPositions = getTotalPositions(newCreatedCart.dishes, newCreatedCart.drinks);
-    this._cart = newCreatedCart;
+    this._cart = newCreatedCart.totalPositions ? newCreatedCart : null;
 
     function getTotalPositions(dishes: object, drinks: object): number {
       let totalPositions: number = 0;
-      for (const positioin in dishes) {
-        if (dishes.hasOwnProperty(positioin)) totalPositions++;
+      if (objectNotEmpty(dishes)) {
+        for (const positioin in dishes) {
+          if (dishes.hasOwnProperty(positioin)) totalPositions++;
+        }
       }
-      for (const position in drinks) {
-        if (drinks.hasOwnProperty(position)) totalPositions++;
+      if (objectNotEmpty(drinks)) {
+        for (const position in drinks) {
+          if (drinks.hasOwnProperty(position)) totalPositions++;
+        }
       }
       return totalPositions;
     }
   }
 
-  private updateIsCartEmptyState(): void {
-    if (isObjectEmpty(this._cart)) {
-      this.isCartEmpty = true;
+  private updateIsCartEmpty(): void {
+    if (this._cart?.totalPositions) {
+      this.isCartEmpty.next(false);
       return;
     }
 
-    this.isCartEmpty = false;
+    this.isCartEmpty.next(true);
   }
 }
