@@ -15,12 +15,23 @@
   <div *ngIf="dishesController.showIngredients" class="ingredients" @heightOpenClose>{{ menuItem.ingredients }}</div>
 </div>
 
-<div class="order-panel"
-     [ngClass]="{ 'order-panel_shadow': !dishesController.showIngredients }">
+<div
+  class="order-panel"
+  [ngClass]="{ 'order-panel_shadow': !dishesController.showIngredients }">
   <div class="counter">
-    <button type="button" class="decrease" (click)="decrease()">-</button>
+    <button
+      type="button"
+      class="decrease"
+      [disabled]="total === 0"
+      (click)="decrease()">-
+    </button>
     <div class="total">{{ total }}</div>
-    <button type="button" class="increase" (click)="increase()">+</button>
+    <button
+      type="button"
+      class="increase"
+      [disabled]="total > 5"
+      (click)="increase()">+
+    </button>
   </div>
   <button class="add" type="button" (click)="addToCart()">Add</button>
 </div>

@@ -3,30 +3,41 @@
   height: 5vh;
   background-color: yellow;
 
+  header {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+    height: 5vh;
+  }
+
   .cart-total {
     padding: 2px 6px;
-    margin-left: 0.25rem;
+    margin-left: .25rem;
     border-radius: 10%;
     background-color: #7ed321;
   }
 
-  header {
-    display: flex; justify-content: center; align-items: center;
-    position: relative;
-    padding: 0.5rem;
-  }
-
-  .dishes, .dish {
-    padding: 0 1rem 0 .5rem;
-  }
-
   .dish {
     display: flex;
+    font-size: 1.25rem;
+    font-style: italic;
+    margin-bottom: .5rem;
 
     .dish__amount {
-      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+
+    .dish__remove-icon {
+      font-size: 1.5rem;
       margin-left: auto;
     }
+  }
+}
+
+.section {
+  padding: 0 1rem;
+
+  .dishes-header {
+    margin-bottom: 1rem;
   }
 }
 

@@ -243,6 +243,9 @@ export class DishesComponent implements OnInit, OnDestroy {
     this.subscrOnMenuItemTapped();
     this.subscrOnScroll();
     this.subscrOnEmptyCart();
+
+    // initialization
+    this.cartService.emitCartWasChanged();
   }
 
   ngOnDestroy(): void {

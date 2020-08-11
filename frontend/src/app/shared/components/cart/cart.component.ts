@@ -74,8 +74,7 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     }));
 
-    // first initialization
-    this.cartService.emitCartWasChanged();
+    // first initialization from dishes.component
   }
 
   ngOnDestroy(): void {

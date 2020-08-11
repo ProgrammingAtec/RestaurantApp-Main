@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {DishesComponent} from './dishes.component';
 import {SharedModule} from '../shared/shared.module';
 import {HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -14,8 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   imports: [
     CommonModule,
     SharedModule,
-    HttpClientModule,
-    // BrowserAnimationsModule
+    HttpClientModule
   ],
   exports: [
     DishesComponent

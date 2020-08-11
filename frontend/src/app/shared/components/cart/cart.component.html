@@ -12,13 +12,15 @@
   </header>
 
   <main *ngIf="isSpread">
-    <h2 class="dishes">Dishes</h2>
+    <section class="section section-dishes">
+      <h2 class="dishes-header">Dishes</h2>
 
-    <div *ngFor="let dish of cart.dishes" class="dish">
-      <div class="dish__position">{{ dish.key }}</div>
-      <div class="dish__amount">{{ dish.value }}</div>
-      <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removeMenuItem(dish); $event.stopPropagation()"></ion-icon>
-    </div>
+      <div *ngFor="let dish of cart.dishes" class="dish">
+        <div class="dish__position">{{ dish.key }}</div>
+        <div class="dish__amount">{{ dish.value }}</div>
+        <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removeMenuItem(dish); $event.stopPropagation()"></ion-icon>
+      </div>
+    </section>
   </main>
 
 </div>
