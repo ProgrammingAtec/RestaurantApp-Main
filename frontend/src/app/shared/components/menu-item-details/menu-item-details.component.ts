@@ -30,6 +30,7 @@ import {CartService} from '../../services/cart.service';
   ]
 })
 export class MenuItemDetailsComponent implements OnInit {
+  @Input() data: string;
   @Input() menuItem: DishModel | DrinkModel;
 
   total: number = 1;

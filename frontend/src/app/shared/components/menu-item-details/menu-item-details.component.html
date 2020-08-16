@@ -1,5 +1,5 @@
 <div class="frame">
-  <img class="image" [src]="'assets/dishes/' + menuItem.name + '_640.jpg'">
+  <img class="image" [src]="'assets/' + data + '/' + menuItem.name + '_640.jpg'">
 
   <div class="nomination">{{ menuItem.name }}</div>
   <div *ngIf="dishesController.showIngredients" class="ingredients" @heightOpenClose>{{ menuItem.ingredients }}</div>

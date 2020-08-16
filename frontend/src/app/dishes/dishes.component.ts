@@ -1,10 +1,10 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DishModel, DrinkModel} from '../shared/models';
-import {HttpClient} from '@angular/common/http';
 import {DishesController} from './dishes.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {CartService} from '../shared/services/cart.service';
 import {Subscription} from 'rxjs';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-dishes',
@@ -37,190 +37,6 @@ import {Subscription} from 'rxjs';
 export class DishesComponent implements OnInit, OnDestroy {
   @ViewChild('grid', { static: true }) grid: ElementRef;
 
-  public dishes: DishModel[] = [
-    {
-      name: 'henkali',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'plov',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'hachapooree',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'caeser',
-      quantity: 1,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'henkali',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'plov',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'hachapooree',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-
-    },
-    {
-      name: 'caeser',
-      quantity: 1,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'henkali',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'plov',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'hachapooree',
-      quantity: 3,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    },
-    {
-      name: 'caeser',
-      quantity: 1,
-      price: 499,
-      weight: 300,
-      ingredients: [
-        'tomato',
-        'potato',
-        'cucamber',
-        'carrot',
-        'shinat',
-        'fish',
-        'chicken'
-      ]
-    }
-  ];
-
   private _closeDetails = false;
   private _distanceFromTop: number = 0;
   private _touchY: number[] = [];
@@ -230,22 +46,24 @@ export class DishesComponent implements OnInit, OnDestroy {
   tappedMenuItem: DishModel | DrinkModel;
   isCartEmpty: boolean;
   showDetails: boolean = false;
+  dishes: DrinkModel[] | DrinkModel[];
+  data: string;
 
   constructor(
-    private readonly http: HttpClient,
+    private readonly route: ActivatedRoute,
     private readonly dishesController: DishesController,
     readonly cartService: CartService
   ) {
   }
 
   ngOnInit(): void {
-    // this.getDishes();
+    this.data = this.route.snapshot.paramMap.get('nomination');
+    this.getDishes();
+
     this.subscrOnMenuItemTapped();
     this.subscrOnScroll();
     this.subscrOnEmptyCart();
-
-    // initialization
-    this.cartService.emitCartWasChanged();
+    this.cartService.emitCartWasChanged(); // initialization
   }
 
   ngOnDestroy(): void {
@@ -292,12 +110,6 @@ export class DishesComponent implements OnInit, OnDestroy {
     this._touchY = [];
   }
 
-  private getDishes(): void {
-    this.http.get('api/dishes/getAll').subscribe((dishes: { data: DishModel[] }) => {
-      this.dishes = dishes.data;
-    });
-  }
-
   private subscrOnMenuItemTapped(): void {
     this.subscriptions.add(this.dishesController.menuItemTapped.subscribe((menuItem) => {
       this.tappedMenuItem = menuItem;
@@ -319,6 +131,10 @@ export class DishesComponent implements OnInit, OnDestroy {
         window.scrollTo(0, this._distanceFromTop);
       }
     });
+  }
+
+  private getDishes() {
+    this.subscriptions.add(this.route.data.subscribe(value => this.dishes = value.dishes));
   }
 
   private subscrOnEmptyCart(): void {

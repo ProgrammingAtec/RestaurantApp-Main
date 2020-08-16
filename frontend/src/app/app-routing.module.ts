@@ -1,31 +1,24 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DishesComponent} from './dishes/dishes.component';
-import {BarComponent} from './bar/bar.component';
 import {HomeComponent} from './home/home.component';
+import {NominationResolver} from './nomination.resolver';
 
 const router: Routes = [
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'home', pathMatch: 'full',
+    component: HomeComponent,
   },
   {
-    path: 'dishes',
-    component: DishesComponent
-  },
-  {
-    path: 'bar',
-    component: BarComponent
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'home/:nomination', component: DishesComponent,
+    resolve: { dishes: NominationResolver }
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(router)],
+  imports: [RouterModule.forRoot(router, {
+    paramsInheritanceStrategy: 'always'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

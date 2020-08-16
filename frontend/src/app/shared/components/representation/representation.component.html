@@ -1,14 +1,14 @@
 <div class="frame" (click)="menuItemTapped()">
   <picture class="image">
     <source
-      [srcset]="'assets/dishes/' + represent.name + '_320.jpg'"
+      [srcset]="'assets/' + data + '/' + represent.name + '_320.jpg 2x 3x 4x 5x 6x'"
       type="image/jpg"
       media="all and (max-width: 1125px)">
     <source
-      [srcset]="'assets/dishes/' + represent.name + '_640.jpg'"
+      [srcset]="'assets/' + data + '/' + represent.name + '_640.jpg'"
       type="image/jpg"
       media="all and (min-width: 1126px)">
-    <img [src]="'assets/dishes/' + represent.name + '_640.jpg'">
+    <img [src]="'assets/' + data + '/' + represent.name + '_640.jpg'">
   </picture>
 
   <div class="nomination">{{ represent.name }}</div>

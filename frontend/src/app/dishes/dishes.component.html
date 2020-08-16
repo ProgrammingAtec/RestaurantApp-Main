@@ -2,6 +2,7 @@
   <app-representation
     *ngFor="let dish of dishes"
     class="dish"
+    [data]="data"
     [represent]="dish">
   </app-representation>
 </div>
@@ -18,6 +19,7 @@
   *ngIf="showDetails"
   class="menu-item-details"
   [ngStyle]="{ 'bottom': isCartEmpty ? bottomIndent + 'px' : 'calc(' + bottomIndent + 'px + 5vh)'}"
+  [data]="data"
   [menuItem]="tappedMenuItem"
   @heightOpenClose
   (touchmove)="touchMove($event); $event.preventDefault()"

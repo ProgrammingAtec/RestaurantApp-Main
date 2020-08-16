@@ -9,8 +9,8 @@ import {DishesController} from '../../../dishes/dishes.controller';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RepresentationComponent implements OnInit {
-  @Input()
-  represent: DrinkModel | DishModel;
+  @Input() data: string;
+  @Input() represent: DrinkModel | DishModel;
 
   constructor(private readonly dishesController: DishesController) { }
   ngOnInit(): void {

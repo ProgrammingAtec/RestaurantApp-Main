@@ -8,6 +8,7 @@ import {DishesModule} from './dishes/dishes.module';
 import {BarModule} from './bar/bar.module';
 import {CartComponent} from './shared/components/cart/cart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NominationResolver} from './nomination.resolver';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [NominationResolver],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
