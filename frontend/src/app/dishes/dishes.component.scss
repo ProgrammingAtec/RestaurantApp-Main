@@ -4,7 +4,9 @@
 }
 
 .grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(640px, 1fr)); grid-gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
   max-width: 2560px;
   padding: 2%;
 }
@@ -13,27 +15,9 @@
   margin: 0 auto;
 }
 
-@media screen and (max-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(236px, 1fr));
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  }
-}
-
 @media screen and (max-width: 640px) {
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 

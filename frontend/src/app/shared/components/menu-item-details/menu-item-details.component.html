@@ -1,15 +1,5 @@
 <div class="frame">
-  <picture>
-    <source
-      [srcset]="'assets/dishes/' + menuItem.name + '_320.jpg'"
-      type="image/jpg"
-      media="all and (max-width: 320px)">
-    <source
-      [srcset]="'assets/dishes/' + menuItem.name + '_640.jpg'"
-      type="image/jpg"
-      media="all and (min-width: 321px) and (max-width: 640px)">
-    <img class="image" [src]="'assets/dishes/' + menuItem.name + '_640.jpg'">
-  </picture>
+  <img class="image" [src]="'assets/dishes/' + menuItem.name + '_640.jpg'">
 
   <div class="nomination">{{ menuItem.name }}</div>
   <div *ngIf="dishesController.showIngredients" class="ingredients" @heightOpenClose>{{ menuItem.ingredients }}</div>
