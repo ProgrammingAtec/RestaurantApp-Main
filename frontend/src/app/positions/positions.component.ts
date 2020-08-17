@@ -1,17 +1,17 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DishModel, DrinkModel} from '../shared/models';
-import {DishesController} from './dishes.controller';
+import {PositionsController} from './positions.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {CartService} from '../shared/services/cart.service';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-dishes',
-  templateUrl: './dishes.component.html',
-  styleUrls: ['./dishes.component.scss'],
+  templateUrl: './positions.component.html',
+  styleUrls: ['./positions.component.scss'],
   providers: [
-    DishesController
+    PositionsController
   ],
   animations: [
     trigger('heightOpenClose', [
@@ -34,7 +34,7 @@ import {ActivatedRoute} from "@angular/router";
     ])
   ]
 })
-export class DishesComponent implements OnInit, OnDestroy {
+export class PositionsComponent implements OnInit, OnDestroy {
   @ViewChild('grid', { static: true }) grid: ElementRef;
 
   private _closeDetails = false;
@@ -43,26 +43,25 @@ export class DishesComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   bottomIndent: number = 0;
-  tappedMenuItem: DishModel | DrinkModel;
+  tappedPosition: DishModel | DrinkModel;
   isCartEmpty: boolean;
   showDetails: boolean = false;
-  dishes: DrinkModel[] | DrinkModel[];
-  data: string;
+  positions: DrinkModel[] | DrinkModel[];
+  positionsType: string;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly dishesController: DishesController,
+    private readonly positionsController: PositionsController,
     readonly cartService: CartService
   ) {
   }
 
   ngOnInit(): void {
-    this.data = this.route.snapshot.paramMap.get('nomination');
+    this.positionsType = this.route.snapshot.paramMap.get('nomination');
     this.getDishes();
-
-    this.subscrOnMenuItemTapped();
-    this.subscrOnScroll();
-    this.subscrOnEmptyCart();
+    this.subsOnPositionTapped();
+    this.subsOnScroll();
+    this.subsOnEmptyCart();
     this.cartService.emitCartWasChanged(); // initialization
   }
 
@@ -82,15 +81,15 @@ export class DishesComponent implements OnInit, OnDestroy {
     }
 
     if (this._touchY[this._touchY.length - 1] - this._touchY[0] > 30) {
-      if (this.dishesController.showIngredients) {
-        this.dishesController.showIngredients = false;
+      if (this.positionsController.showIngredients) {
+        this.positionsController.showIngredients = false;
       }
       this._touchY = [];
       this._closeDetails = true;
     }
 
     if (this._touchY[0] - this._touchY[this._touchY.length - 1] > 30) {
-      this.dishesController.showIngredients = true;
+      this.positionsController.showIngredients = true;
       this._touchY = [];
       this._closeDetails = false;
     }
@@ -110,9 +109,9 @@ export class DishesComponent implements OnInit, OnDestroy {
     this._touchY = [];
   }
 
-  private subscrOnMenuItemTapped(): void {
-    this.subscriptions.add(this.dishesController.menuItemTapped.subscribe((menuItem) => {
-      this.tappedMenuItem = menuItem;
+  private subsOnPositionTapped(): void {
+    this.subscriptions.add(this.positionsController.positionTappedChanges.subscribe((position) => {
+      this.tappedPosition = position;
       this.showDetails = true;
       this.calcScrolledHeight();
       this._touchY = [];
@@ -125,7 +124,7 @@ export class DishesComponent implements OnInit, OnDestroy {
     this.bottomIndent = this.grid.nativeElement.scrollHeight - (this._distanceFromTop + visibleScreenHeight);
   }
 
-  private subscrOnScroll(): void {
+  private subsOnScroll(): void {
     window.addEventListener('scroll', (event) => {
       if (this.showDetails) {
         window.scrollTo(0, this._distanceFromTop);
@@ -134,10 +133,10 @@ export class DishesComponent implements OnInit, OnDestroy {
   }
 
   private getDishes() {
-    this.subscriptions.add(this.route.data.subscribe(value => this.dishes = value.dishes));
+    this.subscriptions.add(this.route.data.subscribe(value => this.positions = value.dishes));
   }
 
-  private subscrOnEmptyCart(): void {
+  private subsOnEmptyCart(): void {
     this.subscriptions.add(this.cartService.isCartEmpty.subscribe(isEmpty => this.isCartEmpty = isEmpty));
   }
 }

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {DishModel, DrinkModel} from '../../models';
-import {DishesController} from '../../../dishes/dishes.controller';
+import {PositionsController} from '../../../positions/positions.controller';
 
 @Component({
   selector: 'app-representation',
@@ -9,14 +9,14 @@ import {DishesController} from '../../../dishes/dishes.controller';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RepresentationComponent implements OnInit {
-  @Input() data: string;
-  @Input() represent: DrinkModel | DishModel;
+  @Input() positionsType: string;
+  @Input() representation: DrinkModel | DishModel;
 
-  constructor(private readonly dishesController: DishesController) { }
+  constructor(private readonly positionsController: PositionsController) { }
   ngOnInit(): void {
   }
 
   public menuItemTapped(): void {
-    this.dishesController.emitMenuItemTapped(this.represent);
+    this.positionsController.emitPositionTapped(this.representation);
   }
 }

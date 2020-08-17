@@ -1,11 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeModule} from './home/home.module';
-import {DishesModule} from './dishes/dishes.module';
-import {BarModule} from './bar/bar.module';
+import {PositionsModule} from './positions/positions.module';
 import {CartComponent} from './shared/components/cart/cart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NominationResolver} from './nomination.resolver';
@@ -18,8 +17,7 @@ import {NominationResolver} from './nomination.resolver';
   imports: [
     BrowserModule,
     HomeModule,
-    DishesModule,
-    BarModule,
+    PositionsModule,
     BrowserAnimationsModule,
     AppRoutingModule
   ],

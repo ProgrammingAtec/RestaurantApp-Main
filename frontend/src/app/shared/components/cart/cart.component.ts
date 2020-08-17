@@ -74,7 +74,7 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     }));
 
-    // first initialization from dishes.component
+    // first initialization from positions.component
   }
 
   ngOnDestroy(): void {

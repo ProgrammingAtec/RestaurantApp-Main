@@ -1,13 +1,13 @@
 <div class="frame">
-  <img class="image" [src]="'assets/' + data + '/' + menuItem.name + '_640.jpg'">
+  <img class="image" [src]="'assets/' + positionsType + '/' + position.name + '_640.jpg'">
 
-  <div class="nomination">{{ menuItem.name }}</div>
-  <div *ngIf="dishesController.showIngredients" class="ingredients" @heightOpenClose>{{ menuItem.ingredients }}</div>
+  <div class="nomination">{{ position.name }}</div>
+  <div *ngIf="positionsController.showIngredients" class="ingredients" @heightOpenClose>{{ position.ingredients }}</div>
 </div>
 
 <div
   class="order-panel"
-  [ngClass]="{ 'order-panel_shadow': !dishesController.showIngredients }">
+  [ngClass]="{ 'order-panel_shadow': !positionsController.showIngredients }">
   <div class="counter">
     <button
       type="button"

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DishesComponent} from './dishes.component';
+import {PositionsComponent} from './positions.component';
 import {SharedModule} from '../shared/shared.module';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    DishesComponent
+    PositionsComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule
   ],
   exports: [
-    DishesComponent
+    PositionsComponent
   ]
 })
-export class DishesModule { }
+export class PositionsModule { }

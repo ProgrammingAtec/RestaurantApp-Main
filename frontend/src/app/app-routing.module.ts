@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DishesComponent} from './dishes/dishes.component';
+import {PositionsComponent} from './positions/positions.component';
 import {HomeComponent} from './home/home.component';
 import {NominationResolver} from './nomination.resolver';
 
 const router: Routes = [
   {
-    path: 'home', pathMatch: 'full',
+    path: '', pathMatch: 'full',
     component: HomeComponent,
   },
   {
-    path: 'home/:nomination', component: DishesComponent,
+    path: ':nomination', component: PositionsComponent,
     resolve: { dishes: NominationResolver }
   }
 ];

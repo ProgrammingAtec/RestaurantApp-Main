@@ -18,4 +18,4 @@ import { MenuItemDetailsComponent } from './components/menu-item-details/menu-it
     MenuItemDetailsComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

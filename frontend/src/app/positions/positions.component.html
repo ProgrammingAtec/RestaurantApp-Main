@@ -1,9 +1,8 @@
 <div #grid class="grid position">
   <app-representation
-    *ngFor="let dish of dishes"
-    class="dish"
-    [data]="data"
-    [represent]="dish">
+    *ngFor="let position of positions"
+    [positionsType]="positionsType"
+    [representation]="position">
   </app-representation>
 </div>
 
@@ -17,10 +16,10 @@
 
 <app-menu-item-details
   *ngIf="showDetails"
-  class="menu-item-details"
+  class="position-details"
   [ngStyle]="{ 'bottom': isCartEmpty ? bottomIndent + 'px' : 'calc(' + bottomIndent + 'px + 5vh)'}"
-  [data]="data"
-  [menuItem]="tappedMenuItem"
+  [positionsType]="positionsType"
+  [position]="tappedPosition"
   @heightOpenClose
   (touchmove)="touchMove($event); $event.preventDefault()"
   (touchend)="closeDetails()">

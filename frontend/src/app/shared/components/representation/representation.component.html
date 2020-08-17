@@ -1,19 +1,19 @@
 <div class="frame" (click)="menuItemTapped()">
   <picture class="image">
     <source
-      [srcset]="'assets/' + data + '/' + represent.name + '_320.jpg 2x 3x 4x 5x 6x'"
+      [srcset]="'assets/' + positionsType + '/' + representation.name + '_320.jpg'"
       type="image/jpg"
       media="all and (max-width: 1125px)">
     <source
-      [srcset]="'assets/' + data + '/' + represent.name + '_640.jpg'"
+      [srcset]="'assets/' + positionsType + '/' + representation.name + '_640.jpg'"
       type="image/jpg"
       media="all and (min-width: 1126px)">
-    <img [src]="'assets/' + data + '/' + represent.name + '_640.jpg'">
+    <img [src]="'assets/' + positionsType + '/' + representation.name + '_640.jpg'">
   </picture>
 
-  <div class="nomination">{{ represent.name }}</div>
+  <div class="nomination">{{ representation.name }}</div>
   <div class="info">
-    <div class="price">{{ represent.price + '₽' }}</div>
-    <div class="weight">{{ represent.weight + 'г' }}</div>
+    <div class="price">{{ representation.price + '₽' }}</div>
+    <div class="weight">{{ representation.weight + 'г' }}</div>
   </div>
 </div>

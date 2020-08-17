@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {DishModel, DrinkModel} from '../../models';
-import {DishesController} from '../../../dishes/dishes.controller';
+import {PositionsController} from '../../../positions/positions.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {CartService} from '../../services/cart.service';
 
@@ -29,18 +29,15 @@ import {CartService} from '../../services/cart.service';
     ])
   ]
 })
-export class MenuItemDetailsComponent implements OnInit {
-  @Input() data: string;
-  @Input() menuItem: DishModel | DrinkModel;
+export class MenuItemDetailsComponent {
+  @Input() positionsType: string;
+  @Input() position: DishModel | DrinkModel;
 
   total: number = 1;
 
   constructor(
-    readonly dishesController: DishesController,
+    readonly positionsController: PositionsController,
     private readonly cartService: CartService) {
-  }
-
-  ngOnInit(): void {
   }
 
   decrease(): void {
@@ -59,7 +56,7 @@ export class MenuItemDetailsComponent implements OnInit {
     if (sessionStorage.hasOwnProperty('dishes')) {
       let existingDishes: object = JSON.parse(sessionStorage.getItem('dishes'));
       for (const dishName in existingDishes) {
-        if (dishName === this.menuItem.name) {
+        if (dishName === this.position.name) {
           existingDishes[dishName] = existingDishes[dishName] + this.total;
           sessionStorage.setItem('dishes', JSON.stringify(existingDishes));
 
@@ -85,7 +82,7 @@ export class MenuItemDetailsComponent implements OnInit {
 
   private orderCurrentMenuItem(): object {
     const order: object = {};
-    order[this.menuItem.name] = this.total;
+    order[this.position.name] = this.total;
     return order;
   }
 }
