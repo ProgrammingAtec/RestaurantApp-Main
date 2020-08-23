@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 class Database {
     constructor() {}
 
@@ -18,6 +20,31 @@ class Database {
 
     getAll() {
         return this.dataTable;
+    }
+
+    makeBackup() {
+        const path = '/Users/chingizegamberdiev/programming/board-backups/backup.txt';
+
+        fs.writeFile(path, JSON.stringify(this.dataTable), (err) => {
+            console.log(JSON.stringify(this.dataTable));
+            if (err) return console.log(err);
+        });
+    }
+
+    async loadBackup() {
+        const path = '/Users/chingizegamberdiev/programming/board-backups/backup.txt';
+
+        const data = await new Promise((resolve, reject) => {
+            fs.readFile(path, (err, data) => {
+                if (err) reject(err);
+                this.dataTable = JSON.parse(data);
+                resolve(this.dataTable);
+            });
+        });
+
+        console.log('Data type', typeof data);
+        console.log('Data: ', data);
+        return data;
     }
 }
 
