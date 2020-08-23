@@ -1,0 +1,19 @@
+<table class="table">
+  <tr class="table-row">
+    <th>table ID</th>
+    <th>order</th>
+  </tr>
+  <tr *ngFor="let tableOrder of tableOrders | keyvalue">
+    <td class="table-data">{{ tableOrder.key }}</td>
+    <td class="table-data">
+      <div *ngFor="let order of tableOrder.value">
+        <div *ngFor="let section of order | keyvalue">
+          <span class="section">{{ section.key }} -</span>
+          <span *ngFor="let position of section.value | keyvalue" class="position">
+            {{ position.key }} : {{ position.value }}
+          </span>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>

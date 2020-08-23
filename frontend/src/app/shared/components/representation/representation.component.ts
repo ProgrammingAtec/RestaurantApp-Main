@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {DishModel, DrinkModel} from '../../models';
 import {PositionsController} from '../../../positions/positions.controller';
 
@@ -8,13 +8,11 @@ import {PositionsController} from '../../../positions/positions.controller';
   styleUrls: ['./representation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RepresentationComponent implements OnInit {
+export class RepresentationComponent {
   @Input() positionsType: string;
-  @Input() representation: DrinkModel | DishModel;
+  @Input() representation: DrinkModel & DishModel;
 
-  constructor(private readonly positionsController: PositionsController) { }
-  ngOnInit(): void {
-  }
+  constructor(private readonly positionsController: PositionsController) {}
 
   public menuItemTapped(): void {
     this.positionsController.emitPositionTapped(this.representation);

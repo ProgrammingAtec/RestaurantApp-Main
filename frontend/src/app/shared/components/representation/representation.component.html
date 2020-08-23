@@ -14,6 +14,6 @@
   <div class="nomination">{{ representation.name }}</div>
   <div class="info">
     <div class="price">{{ representation.price + '₽' }}</div>
-    <div class="weight">{{ representation.weight + 'г' }}</div>
+    <div class="weight">{{ representation?.weight ? representation?.weight : representation?.volume + 'г' }}</div>
   </div>
 </div>

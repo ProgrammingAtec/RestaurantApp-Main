@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RepresentationComponent } from './components/representation/representation.component';
 import { MenuItemDetailsComponent } from './components/menu-item-details/menu-item-details.component';
+import {FormsModule} from '@angular/forms';
 
 
 

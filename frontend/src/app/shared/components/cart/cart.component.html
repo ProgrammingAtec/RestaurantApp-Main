@@ -6,21 +6,43 @@
 
   <header>
     <ion-icon name="close-outline" class="close" (click)="closeDetails(); $event.stopPropagation()"></ion-icon>
-    <div class="cart-icon"></div>
+    <div class="cart-icon"><ion-icon name="cart-outline"></ion-icon></div>
     <div class="cart-name">{{ 'Cart:' }}</div>
     <div class="cart-total">{{ cart.totalPositions }}</div>
   </header>
 
   <main *ngIf="isSpread">
-    <section class="section section-dishes">
+    <section *ngIf="objectNotEmpty(cart.dishes)" class="section section-dishes">
       <h2 class="dishes-header">Dishes</h2>
 
       <div *ngFor="let dish of cart.dishes" class="dish">
         <div class="dish__position">{{ dish.key }}</div>
         <div class="dish__amount">{{ dish.value }}</div>
-        <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removeMenuItem(dish); $event.stopPropagation()"></ion-icon>
+        <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removePosition(dish, false,true); $event.stopPropagation()"></ion-icon>
+      </div>
+    </section>
+
+    <section *ngIf="objectNotEmpty(cart.drinks)" class="section section-dishes">
+      <h2 class="dishes-header">Drinks</h2>
+
+      <div *ngFor="let drink of cart.drinks" class="dish">
+        <div class="dish__position">{{ drink.key }}</div>
+        <div class="dish__amount">{{ drink.value }}</div>
+        <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removePosition(drink, true, false); $event.stopPropagation()"></ion-icon>
       </div>
     </section>
   </main>
+
+  <footer>
+    <form #form="ngForm" (ngSubmit)="sendPost()">
+      <input
+        class="table-id"
+        name="tableid"
+        type="number"
+        required
+        [(ngModel)]="tableId">
+      <button type="submit" [disabled]="form.invalid">Make order</button>
+    </form>
+  </footer>
 
 </div>

@@ -53,34 +53,34 @@ export class MenuItemDetailsComponent {
   }
 
   addToCart(): void {
-    if (sessionStorage.hasOwnProperty('dishes')) {
-      let existingDishes: object = JSON.parse(sessionStorage.getItem('dishes'));
-      for (const dishName in existingDishes) {
-        if (dishName === this.position.name) {
-          existingDishes[dishName] = existingDishes[dishName] + this.total;
-          sessionStorage.setItem('dishes', JSON.stringify(existingDishes));
+    if (sessionStorage.hasOwnProperty(this.positionsType)) {
+      let existingPositions: object = JSON.parse(sessionStorage.getItem(this.positionsType));
+      for (const positionName in existingPositions) {
+        if (positionName === this.position.name) {
+          existingPositions[positionName] = existingPositions[positionName] + this.total;
+          sessionStorage.setItem(this.positionsType, JSON.stringify(existingPositions));
 
           this.cartService.emitCartWasChanged();
           return;
         }
       }
 
-      existingDishes = {
-        ...existingDishes,
-        ...this.orderCurrentMenuItem()
+      existingPositions = {
+        ...existingPositions,
+        ...this.orderCurrentPosition()
       };
 
-      sessionStorage.setItem('dishes', JSON.stringify(existingDishes));
+      sessionStorage.setItem(this.positionsType, JSON.stringify(existingPositions));
 
       this.cartService.emitCartWasChanged();
       return;
     }
 
-    sessionStorage.setItem('dishes', JSON.stringify(this.orderCurrentMenuItem()));
+    sessionStorage.setItem(this.positionsType, JSON.stringify(this.orderCurrentPosition()));
     this.cartService.emitCartWasChanged();
   }
 
-  private orderCurrentMenuItem(): object {
+  private orderCurrentPosition(): object {
     const order: object = {};
     order[this.position.name] = this.total;
     return order;

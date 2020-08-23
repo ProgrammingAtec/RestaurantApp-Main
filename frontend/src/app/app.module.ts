@@ -8,18 +8,22 @@ import {PositionsModule} from './positions/positions.module';
 import {CartComponent} from './shared/components/cart/cart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NominationResolver} from './nomination.resolver';
+import {FormsModule} from '@angular/forms';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CartComponent
+    CartComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     HomeModule,
     PositionsModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [NominationResolver],
   bootstrap: [AppComponent],

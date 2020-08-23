@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {DishModel, DrinkModel} from './shared/models';
 
@@ -194,7 +194,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'berry',
       quantity: 6,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'berry'
       ]
@@ -203,7 +203,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'blackberry',
       quantity: 3,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'blackberry'
       ]
@@ -212,7 +212,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'ice-strawberry',
       quantity: 3,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'ice-strawberry'
       ]
@@ -221,7 +221,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'watermelon',
       quantity: 1,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'watermelon'
       ]
@@ -230,7 +230,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'berry',
       quantity: 6,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'berry'
       ]
@@ -239,7 +239,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'blackberry',
       quantity: 3,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'blackberry'
       ]
@@ -248,7 +248,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'ice-strawberry',
       quantity: 3,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'ice-strawberry'
       ]
@@ -257,7 +257,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'watermelon',
       quantity: 1,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'watermelon'
       ]
@@ -266,7 +266,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'berry',
       quantity: 6,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'berry'
       ]
@@ -275,7 +275,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'blackberry',
       quantity: 3,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'blackberry'
       ]
@@ -284,7 +284,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'ice-strawberry',
       quantity: 3,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'ice-strawberry'
       ]
@@ -293,7 +293,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'watermelon',
       quantity: 1,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'watermelon'
       ]
@@ -302,7 +302,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'berry',
       quantity: 6,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'berry'
       ]
@@ -311,7 +311,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'blackberry',
       quantity: 3,
       price: 390,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'blackberry'
       ]
@@ -320,7 +320,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'ice-strawberry',
       quantity: 3,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'ice-strawberry'
       ]
@@ -329,7 +329,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
       name: 'watermelon',
       quantity: 1,
       price: 499,
-      weight: 300,
+      volume: 300,
       ingredients: [
         'watermelon'
       ]

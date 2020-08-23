@@ -9,6 +9,10 @@
     height: 5vh;
   }
 
+  .cart-icon {
+    margin-right: 0.5rem;
+  }
+
   .cart-total {
     padding: 2px 6px;
     margin-left: .25rem;
@@ -51,4 +55,11 @@
   transform: translateY(-50%);
   display: flex; flex-direction: column; justify-content: center;
   font-size: 2rem;
+}
+
+.table-id {
+  border: 1px solid;
+  border-radius: 6px;
+  padding: .25rem .5rem;
+  outline: none;
 }
