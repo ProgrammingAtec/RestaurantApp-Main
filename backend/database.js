@@ -24,16 +24,13 @@ class Database {
 
     makeBackup() {
         const path = '/Users/chingizegamberdiev/programming/board-backups/backup.txt';
-
         fs.writeFile(path, JSON.stringify(this.dataTable), (err) => {
-            console.log(JSON.stringify(this.dataTable));
-            if (err) return console.log(err);
+            if (err) throw new Error('err');
         });
     }
 
     async loadBackup() {
         const path = '/Users/chingizegamberdiev/programming/board-backups/backup.txt';
-
         const data = await new Promise((resolve, reject) => {
             fs.readFile(path, (err, data) => {
                 if (err) reject(err);
@@ -42,8 +39,6 @@ class Database {
             });
         });
 
-        console.log('Data type', typeof data);
-        console.log('Data: ', data);
         return data;
     }
 }
