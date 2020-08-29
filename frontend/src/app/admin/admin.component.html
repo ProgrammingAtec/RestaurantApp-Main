@@ -1,4 +1,4 @@
-<table class="table">
+<table *ngIf="tableOrders; else placeholder" class="table">
   <tr class="table-row">
     <th>table ID</th>
     <th>order</th>
@@ -17,3 +17,10 @@
     </td>
   </tr>
 </table>
+
+<ng-template #placeholder>
+  <div class="container">
+    <button class="backup-button" type="button" (click)="backup()">Backup</button>
+    <p>There is no orders</p>
+  </div>
+</ng-template>
