@@ -20,9 +20,9 @@ const router: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(router, {
-    paramsInheritanceStrategy: 'always'
-  })],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(router)],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule {}

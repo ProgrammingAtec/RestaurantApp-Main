@@ -6,9 +6,9 @@
 
   <header>
     <ion-icon name="close-outline" class="close" (click)="closeDetails(); $event.stopPropagation()"></ion-icon>
-    <div class="cart-icon"><ion-icon name="cart-outline"></ion-icon></div>
-    <div class="cart-name">{{ 'Cart:' }}</div>
-    <div class="cart-total">{{ cart.totalPositions }}</div>
+    <p class="cart-icon"><ion-icon name="cart-outline"></ion-icon></p>
+    <p class="cart-name">Cart:</p>
+    <p class="cart-total">{{ cart.totalPositions }}</p>
   </header>
 
   <main *ngIf="isSpread">
@@ -16,8 +16,8 @@
       <h2 class="dishes-header">Dishes</h2>
 
       <div *ngFor="let dish of cart.dishes" class="dish">
-        <div class="dish__position">{{ dish.key }}</div>
-        <div class="dish__amount">{{ dish.value }}</div>
+        <p class="dish__position">{{ dish.key }}</p>
+        <p class="dish__amount">{{ dish.value }}</p>
         <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removePosition(dish, false,true); $event.stopPropagation()"></ion-icon>
       </div>
     </section>
@@ -26,15 +26,16 @@
       <h2 class="dishes-header">Drinks</h2>
 
       <div *ngFor="let drink of cart.drinks" class="dish">
-        <div class="dish__position">{{ drink.key }}</div>
-        <div class="dish__amount">{{ drink.value }}</div>
+        <p class="dish__position">{{ drink.key }}</p>
+        <p class="dish__amount">{{ drink.value }}</p>
         <ion-icon name="trash-outline" class="dish__remove-icon" (click)="removePosition(drink, true, false); $event.stopPropagation()"></ion-icon>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer *ngIf="isSpread">
     <form #form="ngForm" (ngSubmit)="sendPost()">
+      <p>Table number</p>
       <input
         class="table-id"
         name="tableid"

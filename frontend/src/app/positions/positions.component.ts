@@ -49,6 +49,12 @@ export class PositionsComponent implements OnInit, OnDestroy {
   positions: DrinkModel[] | DrinkModel[];
   positionsType: string;
 
+  private listener = (event: Event) => {
+    if (this.showDetails) {
+      window.scrollTo(0, this._distanceFromTop);
+    }
+  }
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly positionsController: PositionsController,
@@ -67,6 +73,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    window.removeEventListener('scroll', this.listener);
   }
 
   touchMove(event: TouchEvent): void {
@@ -110,7 +117,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
   }
 
   private subsOnPositionTapped(): void {
-    this.subscriptions.add(this.positionsController.positionTappedChanges.subscribe((position) => {
+    this.subscriptions.add(this.positionsController.positionTappedChanges.subscribe(position => {
       this.tappedPosition = position;
       this.showDetails = true;
       this.calcScrolledHeight();
@@ -125,11 +132,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
   }
 
   private subsOnScroll(): void {
-    window.addEventListener('scroll', (event) => {
-      if (this.showDetails) {
-        window.scrollTo(0, this._distanceFromTop);
-      }
-    });
+    window.addEventListener('scroll', this.listener);
   }
 
   private getDishes() {

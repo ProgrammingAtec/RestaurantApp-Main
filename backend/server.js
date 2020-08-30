@@ -29,4 +29,4 @@ app.post('/api/cart/make-order', (req, res) => {
     res.sendStatus(200);
 });
 
-app.listen(3000, '192.168.100.7', () => {});
+app.listen(3000, 'localhost', () => {});

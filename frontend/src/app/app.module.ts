@@ -19,11 +19,11 @@ import { AdminComponent } from './admin/admin.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
     HomeModule,
     PositionsModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FormsModule
+    AppRoutingModule
   ],
   providers: [NominationResolver],
   bootstrap: [AppComponent],

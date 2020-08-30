@@ -1,8 +1,11 @@
 <div class="frame">
   <img class="image" [src]="'assets/' + positionsType + '/' + position.name + '_640.jpg'">
 
-  <div class="nomination">{{ position.name }}</div>
-  <div *ngIf="positionsController.showIngredients" class="ingredients" @heightOpenClose>{{ position.ingredients }}</div>
+  <p class="nomination">{{ position.name }}</p>
+  <p *ngIf="positionsController.showIngredients"
+       class="ingredients"
+       @heightOpenClose>{{ position.ingredients }}
+  </p>
 </div>
 
 <div
@@ -15,7 +18,7 @@
       [disabled]="total === 0"
       (click)="decrease()">-
     </button>
-    <div class="total">{{ total }}</div>
+    <p class="total">{{ total }}</p>
     <button
       type="button"
       class="increase"

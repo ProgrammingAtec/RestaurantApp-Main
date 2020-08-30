@@ -12,18 +12,22 @@ import {CartService} from '../../services/cart.service';
     trigger('heightOpenClose', [
       transition(':enter', [
         style({
-          height: '0'
+          height: '0',
+          color: '#fff'
         }),
-        animate('0.1s ease-in-out', style({
+        animate('0.3s ease-in-out', style({
           height: '*',
+          color: '#000'
         }))
       ]),
       transition(':leave', [
         style({
-          height: '*'
+          height: '*',
+          color: '#000'
         }),
-        animate('0.1s ease-in-out', style({
+        animate('0.3s ease-in-out', style({
           height: '0',
+          color: '#fff'
         }))
       ])
     ])
@@ -47,7 +51,7 @@ export class MenuItemDetailsComponent {
   }
 
   increase(): void {
-    if (this.total < 20) {
+    if (this.total < 15) {
       this.total++;
     }
   }
@@ -69,7 +73,6 @@ export class MenuItemDetailsComponent {
         ...existingPositions,
         ...this.orderCurrentPosition()
       };
-
       sessionStorage.setItem(this.positionsType, JSON.stringify(existingPositions));
 
       this.cartService.emitCartWasChanged();
