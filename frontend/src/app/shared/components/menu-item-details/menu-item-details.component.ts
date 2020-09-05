@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, Input} from '@angular/core';
 import {DishModel, DrinkModel} from '../../models';
 import {PositionsController} from '../../../positions/positions.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
@@ -41,18 +41,23 @@ export class MenuItemDetailsComponent {
 
   constructor(
     readonly positionsController: PositionsController,
+    private readonly cd: ChangeDetectorRef,
     private readonly cartService: CartService) {
   }
 
   decrease(): void {
     if (this.total > 0) {
       this.total--;
+
+      this.cd.detectChanges();
     }
   }
 
   increase(): void {
     if (this.total < 15) {
       this.total++;
+
+      this.cd.detectChanges();
     }
   }
 
@@ -65,6 +70,7 @@ export class MenuItemDetailsComponent {
           sessionStorage.setItem(this.positionsType, JSON.stringify(existingPositions));
 
           this.cartService.emitCartWasChanged();
+
           return;
         }
       }
@@ -76,6 +82,7 @@ export class MenuItemDetailsComponent {
       sessionStorage.setItem(this.positionsType, JSON.stringify(existingPositions));
 
       this.cartService.emitCartWasChanged();
+
       return;
     }
 

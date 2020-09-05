@@ -34,16 +34,14 @@
   </main>
 
   <footer *ngIf="isSpread">
-    <form #form="ngForm" (ngSubmit)="sendPost()">
-      <p>Table number</p>
-      <input
-        class="table-id"
-        name="tableid"
-        type="number"
-        required
-        [(ngModel)]="tableId">
-      <button type="submit" [disabled]="form.invalid">Make order</button>
-    </form>
+    <p>Table number</p>
+    <input
+      class="table-id"
+      name="tableid"
+      type="number"
+      required
+      [formControl]="tableIdControl">
+    <button type="submit" [disabled]="tableIdControl.invalid" (click)="sendPost()">Make order</button>
   </footer>
 
 </div>

@@ -1,10 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {CartModel} from '../../models/cart.model';
 import {CartService} from '../../services/cart.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {Subscription} from 'rxjs';
 import {objectNotEmpty} from 'src/app/shared/functions/general-use-functions';
 import {HttpClient} from '@angular/common/http';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-cart',
@@ -32,19 +33,20 @@ import {HttpClient} from '@angular/common/http';
   ]
 })
 export class CartComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription = new Subscription();
+  private _subscriptions: Subscription = new Subscription();
   cart: CartModel;
   isSpread = false;
-  tableId: number;
   customIterator: (positionsType: 'drinks' | 'dishes') => () => {next: () => {done: boolean, value?: object}};
+  tableIdControl: FormControl = new FormControl('');
 
   constructor(
     private readonly cartService: CartService,
+    private readonly cd: ChangeDetectorRef,
     private readonly http: HttpClient) {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.cartService.cartValueChanges.subscribe(() => {
+    this._subscriptions.add(this.cartService.cartValueChanges.subscribe(() => {
       this.cart = this.cartService.getCurrentCartValue();
 
       if (this.cart) {
@@ -78,20 +80,26 @@ export class CartComponent implements OnInit, OnDestroy {
         if (this.cart.dishes) this.cart.dishes[Symbol.iterator] = this.customIterator('dishes');
         if (this.cart.drinks) this.cart.drinks[Symbol.iterator] = this.customIterator('drinks');
       }
+
+      this.cd.detectChanges();
     }));
     // first initialization from positions.component
+
+    this._subscriptions.add(this.tableIdControl.valueChanges.subscribe(() => this.cd.detectChanges()));
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this._subscriptions.unsubscribe();
   }
 
   openDetails(): void {
     this.isSpread = true;
+    this.cd.detectChanges();
   }
 
   closeDetails(): void {
     this.isSpread = false;
+    this.cd.detectChanges();
   }
 
   removePosition(menuItem: {key: string, value: number}, isDrink?: boolean, isDish?: boolean): void {
@@ -112,7 +120,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   sendPost(): void {
-    this.http.post('/api/cart/make-order', { tableId: this.tableId, order: this.cart })
-      .subscribe();
+    console.log('sent');
+    this.http.post('/api/cart/make-order', { tableId: this.tableIdControl.value, order: this.cart }).subscribe();
   }
 }

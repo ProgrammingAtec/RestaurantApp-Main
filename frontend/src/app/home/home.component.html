@@ -1,10 +1,10 @@
 <div class="menu">
   <div class="menu-sections">
-    <div class="menu-sections__item" routerLink="dishes">
+    <div class="menu-sections__item" (click)="navigateTo('dishes')">
       <img src="http://t1.gstatic.com/images?q=tbn:ANd9GcRl3iqVSIdrFYBzAoXuH-7kpSEtfFL6sZnJmXvjZNUGLPA1qZNvXHmyuGU4tsuS5j-caPuYLT0s-W_nZSRmEFA" alt="dishes" class="dishes-img">
       <p class="menu-sections__item__text">DISHES</p>
     </div>
-    <div class="menu-sections__item" routerLink="drinks">
+    <div class="menu-sections__item" (click)="navigateTo('drinks')">
       <img src="https://images.theconversation.com/files/194291/original/file-20171113-27595-ox08qm.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop" alt="" class="menu-bar">
       <p class="menu-sections__item__text">BAR</p>
     </div>

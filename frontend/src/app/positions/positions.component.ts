@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DishModel, DrinkModel} from '../shared/models';
 import {PositionsController} from './positions.controller';
 import {animate, style, transition, trigger} from '@angular/animations';
@@ -58,6 +58,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly positionsController: PositionsController,
+    private readonly cd: ChangeDetectorRef,
     readonly cartService: CartService
   ) {
   }
@@ -101,11 +102,13 @@ export class PositionsComponent implements OnInit, OnDestroy {
       this._closeDetails = false;
     }
 
+    this.cd.detectChanges();
     this._touchY.push(event.targetTouches[0].clientY);
   }
 
   touchEnd(): void {
     this._touchY = [];
+    this.cd.detectChanges();
   }
 
   closeDetails(): void {
@@ -114,6 +117,8 @@ export class PositionsComponent implements OnInit, OnDestroy {
       this._closeDetails = false;
     }
     this._touchY = [];
+
+    this.cd.detectChanges();
   }
 
   private subsOnPositionTapped(): void {
@@ -122,6 +127,8 @@ export class PositionsComponent implements OnInit, OnDestroy {
       this.showDetails = true;
       this.calcScrolledHeight();
       this._touchY = [];
+
+      this.cd.detectChanges();
     }));
   }
 

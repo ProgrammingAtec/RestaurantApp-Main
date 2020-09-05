@@ -8,7 +8,7 @@ import {PositionsModule} from './positions/positions.module';
 import {CartComponent} from './shared/components/cart/cart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NominationResolver} from './nomination.resolver';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
@@ -23,7 +23,8 @@ import { AdminComponent } from './admin/admin.component';
     FormsModule,
     HomeModule,
     PositionsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [NominationResolver],
   bootstrap: [AppComponent],
