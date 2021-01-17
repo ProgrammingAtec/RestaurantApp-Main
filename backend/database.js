@@ -22,6 +22,10 @@ class Database {
         return this.dataTable;
     }
 
+    removeById(tableId) {
+        delete this.dataTable[tableId];
+    }
+
     makeBackup() {
         const path = '/Users/chingizegamberdiev/programming/board-backups/backup.txt';
         fs.writeFile(path, JSON.stringify(this.dataTable), (err) => {

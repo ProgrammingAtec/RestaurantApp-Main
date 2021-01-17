@@ -10,13 +10,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NominationResolver} from './nomination.resolver';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
+import {TypeEqualityPipe} from "./shared/pipes/type-equality.pipe";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CartComponent,
-    AdminComponent
-  ],
+    declarations: [
+        AppComponent,
+        CartComponent,
+        AdminComponent,
+        TypeEqualityPipe
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

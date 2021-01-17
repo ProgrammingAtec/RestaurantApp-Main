@@ -27,6 +27,12 @@ app.post('/api/cart/make-order', (req, res) => {
     store.write(req.body.tableId, req.body.order);
     store.makeBackup();
     res.sendStatus(200);
-});
+});loadBackup
+
+app.delete('/api/orders/update/:tableId', (req, res) => {
+    store.removeById(req.params.tableId);
+    store.makeBackup();
+    res.sendStatus(200);
+})
 
 app.listen(3000, 'localhost', () => {});

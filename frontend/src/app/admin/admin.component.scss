@@ -1,20 +1,29 @@
 // -----------------------TABLE------------------------
 .table {
   width: 100%;
-  border: 1px solid rgb(0, 0, 0, 0.4);
+  border-collapse: collapse;
 
-  .table-row {
-
+  .first-column {
+    text-align: center;
   }
 
-  .table-data {
+  .second-column {
+    position: relative;
 
+    .remove-icon {
+      font-size: 1.5rem;
+      position: absolute; right: 1rem; top: 0.5rem;
+    }
   }
 }
 
 .container {
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.separateOrder {
+  &:not(:last-child) {
+    padding-bottom: 1rem;
+  }
 }

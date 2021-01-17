@@ -1,19 +1,27 @@
-<table *ngIf="tableOrders; else placeholder" class="table">
+<table *ngIf="tableOrders; else placeholder" class="table" border="1">
   <tr class="table-row">
-    <th>table ID</th>
-    <th>order</th>
+    <th class="first-column">table ID</th>
+    <th class="second-column">order</th>
   </tr>
   <tr *ngFor="let tableOrder of tableOrders | keyvalue">
-    <td class="table-data">{{ tableOrder.key }}</td>
-    <td class="table-data">
-      <div *ngFor="let order of tableOrder.value">
+    <td class="table-data first-column">{{ tableOrder.key }}</td>
+    <td class="table-data second-column">
+      <div *ngFor="let order of tableOrder.value" class="separateOrder">
         <div *ngFor="let section of order | keyvalue">
-          <span class="section">{{ section.key }} -</span>
-          <span *ngFor="let position of section.value | keyvalue" class="position">
-            {{ position.key }} : {{ position.value }}
-          </span>
+          <ng-container *ngIf="section.value">
+            <span class="section">{{ section.key }} - </span>
+            <span *ngIf="section.value | typeEquality: 1; else positions" class="totalPositions">{{section.value}}</span>
+
+            <ng-template #positions>
+              <span *ngFor="let position of section.value | keyvalue" class="position">
+                {{ position.key }} : {{ position.value }}
+              </span>
+            </ng-template>
+          </ng-container>
         </div>
       </div>
+
+      <ion-icon name="close-outline" class="remove-icon" (click)="cleanTable(tableOrder)"></ion-icon>
     </td>
   </tr>
 </table>

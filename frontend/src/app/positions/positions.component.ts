@@ -40,7 +40,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
   private _closeDetails = false;
   private _distanceFromTop: number = 0;
   private _touchY: number[] = [];
-  private subscriptions: Subscription = new Subscription();
+  private _subscriptions: Subscription = new Subscription();
 
   bottomIndent: number = 0;
   tappedPosition: DishModel | DrinkModel;
@@ -70,10 +70,11 @@ export class PositionsComponent implements OnInit, OnDestroy {
     this.subsOnScroll();
     this.subsOnEmptyCart();
     this.cartService.emitCartWasChanged(); // initialization
+    this.subcOnBottomMarginChanged();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this._subscriptions.unsubscribe();
     window.removeEventListener('scroll', this.listener);
   }
 
@@ -122,7 +123,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
   }
 
   private subsOnPositionTapped(): void {
-    this.subscriptions.add(this.positionsController.positionTappedChanges.subscribe(position => {
+    this._subscriptions.add(this.positionsController.positionTappedChanges.subscribe(position => {
       this.tappedPosition = position;
       this.showDetails = true;
       this.calcScrolledHeight();
@@ -136,6 +137,7 @@ export class PositionsComponent implements OnInit, OnDestroy {
     this._distanceFromTop = window.pageYOffset;
     const visibleScreenHeight = window.innerHeight;
     this.bottomIndent = this.grid.nativeElement.scrollHeight - (this._distanceFromTop + visibleScreenHeight);
+    this.cd.detectChanges();
   }
 
   private subsOnScroll(): void {
@@ -143,10 +145,16 @@ export class PositionsComponent implements OnInit, OnDestroy {
   }
 
   private getDishes() {
-    this.subscriptions.add(this.route.data.subscribe(value => this.positions = value.dishes));
+    this._subscriptions.add(this.route.data.subscribe(value => this.positions = value.dishes));
   }
 
   private subsOnEmptyCart(): void {
-    this.subscriptions.add(this.cartService.isCartEmpty.subscribe(isEmpty => this.isCartEmpty = isEmpty));
+    this._subscriptions.add(this.cartService.isCartEmpty.subscribe(isEmpty => this.isCartEmpty = isEmpty));
+  }
+
+  private subcOnBottomMarginChanged(): void {
+    this._subscriptions.add(this.cartService.isCartEmpty.subscribe(isEmpty => {
+      if (!isEmpty) this.calcScrolledHeight();
+    }));
   }
 }
