@@ -9,7 +9,6 @@ let store = new database();
 app.use(bodyParser.json());
 
 app.get('/api/dishes/getAll', (req, res) => {
-    store.makeBackup();
     res.status(200).send({ data: dishes });
 });
 
