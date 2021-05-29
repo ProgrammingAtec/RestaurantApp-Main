@@ -6,7 +6,7 @@ Fisrt attempt to start business
 - [X] NodeJs and expressJs
 - [X] Backup functionality
 - [X] Docker
-- [X] Production frontend
+- [X] Deploy production frontend
 - [X] Architecture: use one universe module for representing two different routes with different content (much less code, easy to change both sides simultenously, a bit hard to read)
 - [X] Rainforce mobile layout
 - [X] Write own custom HammerJS (Frontend Gesture third-party library) implementation
