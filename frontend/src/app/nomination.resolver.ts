@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {DishModel, DrinkModel} from './shared/models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NominationResolver implements Resolve<Observable<DrinkModel[] | DishModel[]>> {
   dishes: DishModel[] = [
     {
@@ -336,7 +338,7 @@ export class NominationResolver implements Resolve<Observable<DrinkModel[] | Dis
     },
   ];
 
-  resolve(route: ActivatedRouteSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const data: DrinkModel[] | DishModel[] = route.paramMap.get('nomination') === 'dishes' ? this.dishes : this.drinks;
 
     return of(data);

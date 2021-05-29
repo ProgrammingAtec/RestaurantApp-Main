@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {CartModel} from '../../models/cart.model';
 import {CartService} from '../../services/cart.service';
 import {animate, style, transition, trigger} from '@angular/animations';
@@ -120,7 +120,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   sendPost(): void {
-    console.log('sent');
     this.http.post('/api/cart/make-order', { tableId: this.tableIdControl.value, order: this.cart }).subscribe();
   }
 }

@@ -13,7 +13,6 @@ RUN npm install
 COPY . /usr/app/angular-app/
 RUN npm run build --prod
 
-
 FROM nginx:1.19-alpine as proxy-server
 
 RUN rm -rv /usr/share/nginx/html/*

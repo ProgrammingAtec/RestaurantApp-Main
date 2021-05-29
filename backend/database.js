@@ -27,7 +27,7 @@ class Database {
     }
 
     makeBackup() {
-        const path = '/Users/chingizegamberdiev/programming/board-backups/backup.txt';
+        const path = '/app/backup/backup.txt';
         fs.writeFile(path, JSON.stringify(this.dataTable), (err) => {
             if (err) throw new Error('err');
         });
