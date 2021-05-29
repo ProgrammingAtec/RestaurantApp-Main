@@ -2,10 +2,12 @@ Fisrt attempt to start business
 
 # Webshop demo
 ## Project Goals
-- [X] backend starting knowledge (No best practices. Full backend improvisation)
-- [X] nodeJs and expressJs
-- [X] backup functionality
-- [X] Architecture. Use one universe module for representing two different routes with different content (much less code, easy to change both sides simultenously, a bit hard to read)
+- [X] Backend starting knowledge (No best practices. Full backend improvisation)
+- [X] NodeJs and expressJs
+- [X] Backup functionality
+- [X] Docker
+- [X] Production frontend
+- [X] Architecture: use one universe module for representing two different routes with different content (much less code, easy to change both sides simultenously, a bit hard to read)
 - [X] Rainforce mobile layout
 - [X] Write own custom HammerJS (Frontend Gesture third-party library) implementation
 - [X] Dig deeper into JS internals
